@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DuniaOTP - Sewa Nomor Virtual & SMS OTP Otomatis 24/7</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-cyan-glow"></div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand-logo">
+        <div class="brand-icon">⚡</div>
+        <div class="brand-info">
+          <span class="brand-name">Dunia<span class="text-cyan">OTP</span></span>
+          <span class="brand-tag">Virtual Number & SMS Service</span>
+        </div>
+      </div>
+      <div class="nav-status-badge">
+        <span class="live-dot"></span> Bot Active 24/7 • Provider Pool: 98.4%
+      </div>
+      <div class="nav-wallet">
+        <span class="wallet-label">Saldo Akun:</span>
+        <span class="wallet-balance" id="userBalance">Rp 25,000</span>
+        <button type="button" class="btn-topup-sm" id="btnOpenDeposit">+ Topup</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-container">
+      <div class="hero-badge">
+        <span>🌐</span> 50+ NEGARA TERSEDIA • SMS INSTANT 2-5 DETIK
+      </div>
+      <h1 class="hero-title">Sewa Nomor Virtual Global & Terima SMS OTP Seketika</h1>
+      <p class="hero-desc">
+        Akses verifikasi SMS untuk WhatsApp, Telegram, Google, Discord, OpenAI, TikTok tanpa kartu SIM fisik. Dilengkapi <b>SmartBuy AI</b>, auto refund 100%, dan QRIS deposit instan.
+      </p>
+      <div class="hero-actions">
+        <a href="#simulator" class="btn btn-cyan btn-lg glow-cyan">
+          <span>🚀 Coba Simulator Live</span>
+        </a>
+        <button type="button" class="btn btn-outline btn-lg" id="btnSmartBuyDemo">
+          <span>⚡ Coba SmartBuy (/sb wa)</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Telegram Bot Simulator -->
+  <section class="simulator-section" id="simulator">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag">SIMULATOR BOT TELEGRAM INTERAKTIF</span>
+        <h2 class="section-title">Coba Alur Sewa Nomor & Terima Kode OTP</h2>
+        <p class="section-desc">Uji coba simulasi pemesanan nomor virtual secara live seperti di Telegram Bot DuniaOTP.</p>
+      </div>
+
+      <div class="bot-simulator-wrapper">
+        <!-- Phone Simulator Mockup -->
+        <div class="telegram-phone">
+          <div class="phone-speaker"></div>
+          
+          <div class="telegram-app">
+            <!-- Telegram App Header -->
+            <div class="tg-header">
+              <div class="tg-back">‹</div>
+              <div class="tg-bot-avatar">🤖</div>
+              <div class="tg-bot-info">
+                <div class="tg-bot-name">DuniaOTP Bot <span class="tg-verified">✓</span></div>
+                <div class="tg-bot-status">bot • siap melayani 24 jam</div>
+              </div>
+              <div class="tg-menu-dots">⋮</div>
+            </div>
+
+            <!-- Telegram Chat Stream -->
+            <div class="tg-messages" id="tgMessages">
+              <!-- Bot Welcome Bubble -->
+              <div class="msg-bubble bot">
+                <div class="msg-text">
+                  👋 <b>Selamat datang di DuniaOTP!</b><br>
+                  Platform sewa nomor virtual instan nomor 1 di Indonesia.<br><br>
+                  💡 <i>Gunakan tombol menu di bawah untuk memilih layanan dan negara yang diinginkan:</i>
+                </div>
+                <div class="msg-time">19:42</div>
+              </div>
+
+              <!-- Active Number / Order Bubble (Dynamic) -->
+              <div class="msg-bubble bot order-bubble" id="activeOrderBubble" style="display: none;">
+                <div class="order-card-header">
+                  <span class="order-badge-live">AKTIF</span>
+                  <span class="order-timer" id="orderTimer">01:59</span>
+                </div>
+                <div class="order-details">
+                  <div class="ord-row">
+                    <span>Layanan:</span>
+                    <b id="ordService">WhatsApp</b>
+                  </div>
+                  <div class="ord-row">
+                    <span>Negara:</span>
+                    <b id="ordCountry">Indonesia (+62)</b>
+                  </div>
+                  <div class="ord-row">
+                    <span>Nomor Virtual:</span>
+                    <span class="font-mono text-cyan" id="ordNumber">+62 838-9182-9901</span>
+                  </div>
+                </div>
+
+                <div class="otp-status-box" id="otpStatusBox">
+                  <div class="spinner-circle" id="otpSpinner"></div>
+                  <span id="otpStatusText">Menunggu SMS kode OTP dari provider...</span>
+                </div>
+
+                <!-- OTP Result Card (Appears after 5 sec) -->
+                <div class="otp-result-card" id="otpResultCard" style="display: none;">
+                  <div class="otp-result-title">SMS OTP DITERIMA! 🎉</div>
+                  <div class="otp-code-box">
+                    <span class="otp-code-text" id="otpCodeDisplay">491-028</span>
+                    <button type="button" class="btn-copy-otp" id="btnCopyOtp" title="Salin OTP">📋 1-Tap Salin</button>
+                  </div>
+                  <div class="otp-sender-info">Pengirim: <span id="otpSender">WhatsApp Code</span></div>
+                </div>
+
+                <!-- Action buttons in telegram bubble -->
+                <div class="tg-inline-keyboard">
+                  <button type="button" class="tg-btn" id="btnCancelOrder">❌ Batalkan & Refund 100%</button>
+                  <button type="button" class="tg-btn" id="btnResendSms">🔄 Minta Kirim Ulang SMS</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Simulator Control Panel below Telegram -->
+            <div class="tg-controls-panel">
+              <div class="control-row">
+                <div class="control-field">
+                  <label>Pilih Layanan / Aplikasi:</label>
+                  <select id="selectService" class="custom-select">
+                    <option value="wa" data-name="WhatsApp" data-price="2500">📱 WhatsApp (Rp 2,500)</option>
+                    <option value="tg" data-name="Telegram" data-price="3000">✈️ Telegram (Rp 3,000)</option>
+                    <option value="go" data-name="Google / Gmail" data-price="2000">🔍 Google (Rp 2,000)</option>
+                    <option value="dc" data-name="Discord" data-price="1800">💬 Discord (Rp 1,800)</option>
+                    <option value="ai" data-name="OpenAI / ChatGPT" data-price="3500">🤖 OpenAI (Rp 3,500)</option>
+                    <option value="tk" data-name="TikTok" data-price="2200">🎵 TikTok (Rp 2,200)</option>
+                  </select>
+                </div>
+
+                <div class="control-field">
+                  <label>Pilih Negara:</label>
+                  <select id="selectCountry" class="custom-select">
+                    <option value="id" data-prefix="+62" data-name="Indonesia">🇮🇩 Indonesia (+62)</option>
+                    <option value="us" data-prefix="+1" data-name="United States">🇺🇸 United States (+1)</option>
+                    <option value="gb" data-prefix="+44" data-name="United Kingdom">🇬🇧 United Kingdom (+44)</option>
+                    <option value="my" data-prefix="+60" data-name="Malaysia">🇲🇾 Malaysia (+60)</option>
+                    <option value="vn" data-prefix="+84" data-name="Vietnam">🇻🇳 Vietnam (+84)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="control-actions">
+                <button type="button" class="btn btn-cyan btn-block" id="btnOrderNumber">
+                  ⚡ Sewa Nomor Sekarang (<span id="btnOrderPrice">Rp 2,500</span>)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Features list on the side -->
+        <div class="features-side-panel">
+          <div class="feat-card">
+            <div class="feat-icon">⚡</div>
+            <div class="feat-content">
+              <h3 class="feat-title">SmartBuy 1-Klik AI Routing</h3>
+              <p class="feat-desc">Algoritma otomatis menyaring puluhan server provider global untuk memberikan negara dengan harga termurah dan tingkat keberhasilan tertinggi.</p>
+            </div>
+          </div>
+
+          <div class="feat-card">
+            <div class="feat-icon">🛡️</div>
+            <div class="feat-content">
+              <h3 class="feat-title">Auto-Refund 100% Saldo</h3>
+              <p class="feat-desc">Jika nomor virtual tidak menerima SMS atau kamu batalkan sebelum waktu habis, saldo otomatis dikembalikan secara instan ke dompet akunmu.</p>
+            </div>
+          </div>
+
+          <div class="feat-card">
+            <div class="feat-icon">💳</div>
+            <div class="feat-content">
+              <h3 class="feat-title">Integrasi QRIS Otomatis (BuatQris)</h3>
+              <p class="feat-desc">Deposit saldo cepat dengan QRIS Dinamis. Cek pembayaran background 2-5 detik tanpa perlu upload struk transfer secara manual.</p>
+            </div>
+          </div>
+
+          <div class="feat-card">
+            <div class="feat-icon">📋</div>
+            <div class="feat-content">
+              <h3 class="feat-title">1-Tap Tombol Salin OTP</h3>
+              <p class="feat-desc">Format monospace dan tombol salin langsung ke clipboard untuk kemudahan saat verifikasi akun dari HP maupun PC.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Deposit QRIS -->
+  <div class="modal-backdrop" id="modalDeposit">
+    <div class="modal-dialog">
+      <button type="button" class="modal-close" id="btnCloseDeposit">✕</button>
+      <div class="modal-header text-center">
+        <h3 class="modal-title">Deposit Saldo QRIS</h3>
+        <p class="modal-sub">Pilih nominal deposit untuk mendapatkan QRIS Dinamis instan</p>
+      </div>
+
+      <div class="deposit-presets">
+        <button type="button" class="dep-btn active" data-amount="10000">Rp 10,000</button>
+        <button type="button" class="dep-btn" data-amount="25000">Rp 25,000</button>
+        <button type="button" class="dep-btn" data-amount="50000">Rp 50,000</button>
+        <button type="button" class="dep-btn" data-amount="100000">Rp 100,000</button>
+      </div>
+
+      <div class="qris-preview-card text-center">
+        <div class="qris-code-box">
+          <svg viewBox="0 0 160 160" width="150" height="150">
+            <rect width="160" height="160" fill="#fff" rx="6"/>
+            <!-- Finder -->
+            <rect x="15" y="15" width="40" height="40" fill="#0b132b"/>
+            <rect x="22" y="22" width="26" height="26" fill="#fff"/>
+            <rect x="28" y="28" width="14" height="14" fill="#06b6d4"/>
+
+            <rect x="105" y="15" width="40" height="40" fill="#0b132b"/>
+            <rect x="112" y="22" width="26" height="26" fill="#fff"/>
+            <rect x="118" y="28" width="14" height="14" fill="#06b6d4"/>
+
+            <rect x="15" y="105" width="40" height="40" fill="#0b132b"/>
+            <rect x="22" y="112" width="26" height="26" fill="#fff"/>
+            <rect x="28" y="118" width="14" height="14" fill="#06b6d4"/>
+
+            <!-- Pattern -->
+            <rect x="65" y="15" width="25" height="12" fill="#0b132b"/>
+            <rect x="65" y="35" width="15" height="20" fill="#0b132b"/>
+            <rect x="90" y="35" width="20" height="15" fill="#06b6d4"/>
+            <rect x="15" y="65" width="30" height="12" fill="#0b132b"/>
+            <rect x="60" y="65" width="40" height="15" fill="#0b132b"/>
+            <rect x="110" y="65" width="35" height="12" fill="#0b132b"/>
+            <rect x="65" y="90" width="25" height="25" fill="#06b6d4"/>
+            <rect x="100" y="90" width="45" height="12" fill="#0b132b"/>
+            <rect x="65" y="125" width="35" height="20" fill="#0b132b"/>
+            <rect x="110" y="120" width="35" height="25" fill="#06b6d4"/>
+          </svg>
+        </div>
+        <div class="qris-nominal-tag" id="depAmountDisplay">Rp 10,000</div>
+        <div class="qris-fee-sub">Biaya Admin: Rp 0 (Gratis)</div>
+      </div>
+
+      <button type="button" class="btn btn-cyan btn-block" id="btnSimulateDeposit">
+        ⚡ Simulasi Selesai Bayar (Saldo Bertambah)
+      </button>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <footer class="footer">
+    <div class="container footer-content text-center">
+      <p>© 2026 DuniaOTP. Virtual Number & SMS Gateway Automation.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

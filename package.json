@@ -1,0 +1,12 @@
+{
+  "name": "duniaotp-preview",
+  "version": "1.0.0",
+  "description": "Showcase & Interactive Simulator for DuniaOTP Virtual Number & SMS Verification Bot",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": ["otp", "virtual-number", "sms-verification", "telegram-bot"],
+  "author": "DuniaOTP",
+  "license": "MIT"
+}
